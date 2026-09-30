@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pranjal Arya // The Wolf Sanctum — Apex Architecture</title>
+<meta name="description" content="Dedicated sanctum and chronicle accessed via the Wolf Tiled Core. High-performance low-poly architectural interface.">
+<meta name="theme-color" content="#08090c">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<style>
+/* ARCHITECTURE: THE WOLF SANCTUM
+   Adheres strictly to the One Tile design theory:
+   Dark radial gradient backdrop, film grain overlay, Space Grotesk + JetBrains Mono,
+   clean typographic dossiers, and interactive low-poly wolf totem. */
+
+:root {
+  --bg: #08090c;
+  --tint: #162038;
+  --accent: #00f0ff;
+  --secondary: #8ea2ff;
+  --ink: #eceef4;
+  --mute: #8d92a3;
+  color-scheme: dark;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100%;
+  background: radial-gradient(65% 65% at 50% 40%, var(--tint), transparent 75%), var(--bg);
+  color: var(--ink);
+  font: 400 16px/1.6 "Space Grotesk", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 99;
+}
+
+/* Header */
+.top-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(env(safe-area-inset-top, 0px) + 18px) clamp(18px, 4vw, 64px);
+  background: rgba(8, 9, 12, 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 50;
+}
+
+.return-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: 500 13px "JetBrains Mono", monospace;
+  color: var(--accent);
+  text-decoration: none;
+  background: rgba(0, 240, 255, 0.05);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.12);
+}
+
+.return-link:hover {
+  background: rgba(0, 240, 255, 0.14);
+  border-color: var(--accent);
+  color: #ffffff;
+  transform: translateX(-3px);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+}
+
+.telemetry-meta {
+  font: 400 12px "JetBrains Mono", monospace;
+  color: var(--mute);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent);
+}
+
+.pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  animation: pulseAnim 2s infinite ease-in-out;
+}
+
+@keyframes pulseAnim {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); filter: drop-shadow(0 0 6px var(--accent)); }
+}
+
+/* Main Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px clamp(18px, 4vw, 64px) 120px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Hero Section */
+.hero {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 48px;
+  margin-bottom: 80px;
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.kick {
+  font: 400 13px "JetBrains Mono", monospace;
+  color: var(--accent);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+h1 {
+  font-size: clamp(36px, 5.2vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.lead {
+  font-size: 19px;
+  color: #c6cad8;
+  margin-bottom: 28px;
+  max-width: 48ch;
+  line-height: 1.6;
+}
+
+.dispatch-notice {
+  background: rgba(0, 240, 255, 0.05);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  font-size: 14px;
+  color: #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.dispatch-notice b {
+  font: 600 12px "JetBrains Mono", monospace;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+/* Interactive Wolf Centerpiece */
+.wolf-display-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wolf-frame {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 1 / 1;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.12) 0%, rgba(14, 22, 40, 0.5) 60%, transparent 80%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 0 35px rgba(0, 240, 255, 0.06);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.wolf-frame:hover {
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 24px 70px rgba(0, 240, 255, 0.18), inset 0 0 50px rgba(0, 240, 255, 0.1);
+}
+
+.wolf-big-svg {
+  width: 82%;
+  height: 82%;
+  filter: drop-shadow(0 10px 28px rgba(0, 240, 255, 0.35));
+  transition: transform 0.3s ease, filter 0.3s ease;
+  cursor: crosshair;
+}
+
+.wolf-big-svg polygon {
+  transition: fill 0.25s ease, opacity 0.25s ease;
+}
+
+.wolf-big-svg polygon:hover {
+  fill: #00f0ff !important;
+  opacity: 1 !important;
+  filter: drop-shadow(0 0 8px #00f0ff);
+}
+
+/* Dossier Grid (Placeholders for Upcoming User Content) */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+}
+
+.section-head h2 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.dossier-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.card {
+  background: rgba(14, 18, 28, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.card:hover {
+  background: rgba(20, 27, 44, 0.85);
+  border-color: rgba(0, 240, 255, 0.35);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 240, 255, 0.12);
+}
+
+.card-num {
+  font: 600 11px "JetBrains Mono", monospace;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 6px;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.card-desc {
+  font-size: 14px;
+  color: var(--mute);
+  line-height: 1.6;
+}
+
+.card-slot {
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px dashed rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  font: 400 12px "JetBrains Mono", monospace;
+  color: var(--accent);
+}
+
+.card-slot span {
+  display: block;
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+/* Wide Directive Feature */
+.wide-panel {
+  background: rgba(14, 20, 34, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 36px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+}
+
+.wide-panel b {
+  font: 600 13px "JetBrains Mono", monospace;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.wide-panel p {
+  font-size: 15px;
+  color: var(--mute);
+  line-height: 1.7;
+}
+
+/* Footer */
+footer {
+  margin-top: 80px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: 400 12px "JetBrains Mono", monospace;
+  color: var(--mute);
+}
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; gap: 40px; }
+  .dossier-grid { grid-template-columns: 1fr; }
+  .wide-panel { grid-template-columns: 1fr; padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<header class="top-header">
+  <a href="index.html" class="return-link" id="return-link" title="Return to Main Portfolio">
+    <span>←</span>
+    <span>RETURN TO PORTFOLIO</span>
+  </a>
+  <div class="telemetry-meta">
+    <div class="status-indicator">
+      <span class="pulse"></span>
+      <span>WOLF PROTOCOL // ACTIVE</span>
+    </div>
+    <span id="utc-clock">UTC 00:00:00</span>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div class="hero-text">
+      <p class="kick">// SANCTUM PROTOCOL // APEX ARCHITECTURE</p>
+      <h1>The Wolf Chronicle</h1>
+      <p class="lead">
+        Dedicated enclave initiated directly from the subtle Wolf Tiled Logo in the top-left navigation.
+      </p>
+
+      <div class="dispatch-notice">
+        <b>CONTACT & PROFILES // DEHRADUN, UTTARAKHAND</b>
+        <div>Email: <a href="mailto:pranjal19082004@gmail.com" style="color:var(--accent);">pranjal19082004@gmail.com</a> | Phone: <a href="tel:+918077587054" style="color:var(--accent);">+91-8077587054</a></div>
+        <div>GitHub: <a href="https://github.com/PranjalArya1908" target="_blank" rel="noopener" style="color:var(--accent);">github.com/PranjalArya1908</a></div>
+      </div>
+    </div>
+
+    <div class="wolf-display-wrap">
+      <div class="wolf-frame" id="wolf-frame">
+        <svg class="wolf-big-svg" id="wolf-big-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- 24 Low-Poly Symmetrical Wolf Facets -->
+          <polygon points="50,22 38,28 50,42" fill="#38bdf8" opacity="0.95" stroke="#00f0ff" stroke-width="0.6" />
+          <polygon points="50,22 62,28 50,42" fill="#0ea5e9" opacity="0.95" stroke="#00f0ff" stroke-width="0.6" />
+          <polygon points="22,8 14,36 32,30" fill="#1e293b" opacity="0.9" stroke="#38bdf8" stroke-width="0.7" />
+          <polygon points="22,8 32,30 38,28" fill="#334155" opacity="0.9" stroke="#38bdf8" stroke-width="0.7" />
+          <polygon points="78,8 86,36 68,30" fill="#0f172a" opacity="0.9" stroke="#38bdf8" stroke-width="0.7" />
+          <polygon points="78,8 68,30 62,28" fill="#1e293b" opacity="0.9" stroke="#38bdf8" stroke-width="0.7" />
+          <polygon points="14,36 32,30 24,54" fill="#1e293b" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+          <polygon points="32,30 36,46 24,54" fill="#334155" opacity="0.9" stroke="#38bdf8" stroke-width="0.6" />
+          <polygon points="86,36 68,30 76,54" fill="#0f172a" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+          <polygon points="68,30 64,46 76,54" fill="#1e293b" opacity="0.9" stroke="#38bdf8" stroke-width="0.6" />
+          <polygon points="50,42 36,46 50,56" fill="#0284c7" opacity="0.95" stroke="#00f0ff" stroke-width="0.7" />
+          <polygon points="50,42 64,46 50,56" fill="#0369a1" opacity="0.95" stroke="#00f0ff" stroke-width="0.7" />
+          <polygon points="36,46 42,52 48,48" fill="#00f0ff" stroke="#ffffff" stroke-width="0.8" />
+          <polygon points="64,46 58,52 52,48" fill="#00f0ff" stroke="#ffffff" stroke-width="0.8" />
+          <polygon points="24,54 16,66 32,70" fill="#1e293b" opacity="0.8" stroke="#38bdf8" stroke-width="0.6" />
+          <polygon points="32,70 36,46 42,66" fill="#334155" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+          <polygon points="76,54 84,66 68,70" fill="#0f172a" opacity="0.8" stroke="#38bdf8" stroke-width="0.6" />
+          <polygon points="68,70 64,46 58,66" fill="#1e293b" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+          <polygon points="50,56 44,68 50,78" fill="#0284c7" opacity="0.9" stroke="#00f0ff" stroke-width="0.7" />
+          <polygon points="50,56 56,68 50,78" fill="#0369a1" opacity="0.9" stroke="#00f0ff" stroke-width="0.7" />
+          <polygon points="42,66 44,68 42,82" fill="#1e293b" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+          <polygon points="58,66 56,68 58,82" fill="#0f172a" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+          <polygon points="50,78 44,84 56,84" fill="#00f0ff" stroke="#ffffff" stroke-width="0.8" />
+          <polygon points="44,84 56,84 50,94" fill="#38bdf8" opacity="0.9" stroke="#ffffff" stroke-width="0.8" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Verified Career Dossiers</h2>
+      <span class="kick">// RESUME DATA RECORD</span>
+    </div>
+
+    <div class="dossier-grid">
+      <div class="card">
+        <div>
+          <span class="card-num">DOSSIER // 01</span>
+          <h3 class="card-title">ONGC Internship</h3>
+          <p class="card-desc">
+            Software Development / AI-ML Intern at Oil and Natural Gas Corporation (Jun 2026 – Jul 2026).
+          </p>
+        </div>
+        <div class="card-slot">
+          ⚡ GRAPHRAG & NEO4J KNOWLEDGE GRAPHS
+          <span>Built FastAPI services for graph-based retrieval, exploration data linking, Dockerized microservices, and LLM contextual responses.</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="card-num">DOSSIER // 02</span>
+          <h3 class="card-title">National Hackathon</h3>
+          <p class="card-desc">
+            Secured 3rd Position in National-Level Hackathon with CrowdSafe.
+          </p>
+        </div>
+        <div class="card-slot">
+          ⚡ 500+ AGENT DENSITY ENGINE
+          <span>Physics simulation with repulsion, attraction, boundary forces & RAG-based AI agent generating contextual safety alerts.</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="card-num">DOSSIER // 03</span>
+          <h3 class="card-title">GATE 2026 Honors</h3>
+          <p class="card-desc">
+            Dual qualification in Graduate Aptitude Test in Engineering.
+          </p>
+        </div>
+        <div class="card-slot">
+          ⚡ AIR 2245 (DA) & AIR 10770 (CS)
+          <span>Data Science & AI (AIR 2245) · Computer Science (AIR 10770). Core Frontend Developer at Tech Club — VMSB UTU.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="wide-panel">
+      <div>
+        <b>// PROFESSIONAL SUMMARY & OBJECTIVE</b>
+        <p>
+          Computer Science undergraduate (B.Tech CSE, 2027) with hands-on experience in full-stack development, AI/ML, knowledge graphs, and real-time systems. Experienced with MERN, Next.js, FastAPI, Neo4j, Docker, and AI APIs.
+        </p>
+      </div>
+      <div>
+        <b>// SEEKING OPPORTUNITIES</b>
+        <p>
+          Seeking Software Development and Full Stack internship opportunities. Contact directly via <a href="mailto:pranjal19082004@gmail.com" style="color:var(--accent);">pranjal19082004@gmail.com</a> or phone <a href="tel:+918077587054" style="color:var(--accent);">+91-8077587054</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>PRANJAL ARYA // B.TECH CSE (2023–2027) // VMSB UTU</span>
+    <a href="index.html" style="color: var(--accent); text-decoration: none;">← RETURN TO MAIN PORTFOLIO</a>
+  </footer>
+</main>
+
+<script>
+  // Clock
+  function tick() {
+    const el = document.getElementById('utc-clock');
+    if (!el) return;
+    const d = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    el.textContent = `UTC ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}`;
+  }
+  setInterval(tick, 1000);
+  tick();
+
+  // Mouse Parallax on Wolf Centerpiece
+  const frame = document.getElementById('wolf-frame');
+  const svg = document.getElementById('wolf-big-svg');
+  if (frame && svg) {
+    frame.addEventListener('mousemove', e => {
+      const r = frame.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      svg.style.transform = `perspective(600px) rotateY(${x * 18}deg) rotateX(${-y * 18}deg) scale(1.05)`;
+    });
+    frame.addEventListener('mouseleave', () => {
+      svg.style.transform = 'perspective(600px) rotateY(0deg) rotateX(0deg) scale(1)';
+    });
+  }
+
+  // Keyboard shortcut: Escape or B
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape' || e.key === 'b' || e.key === 'B') {
+      window.location.href = 'index.html';
+    }
+  });
+</script>
+</body>
+</html>

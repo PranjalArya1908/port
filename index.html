@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pranjal Arya — Software Developer & Systems Engineer // One Tile</title>
+<meta name="description" content="Portfolio of Pranjal Arya, Computer Science undergraduate (B.Tech CSE, 2027). Hands-on in full-stack development, AI/ML, GraphRAG, and real-time systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<style>
+/* ==========================================================================
+   ONE TILE DESIGN THEORY // PRANJAL ARYA
+   ========================================================================== */
+:root {
+  --bg: #08090c;
+  --tint: #1a2040;
+  --accent: #8ea2ff;
+  --ink: #eceef4;
+  --mute: #8d92a3;
+  --cyan: #00f0ff;
+  color-scheme: dark;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: inherit; margin: 0; padding: 0; }
+html, body { height: 100%; width: 100%; overflow: hidden; }
+
+body {
+  background: radial-gradient(65% 65% at 50% 45%, var(--tint), transparent 72%), var(--bg);
+  color: var(--ink);
+  font: 400 16px/1.6 "Space Grotesk", system-ui, sans-serif;
+  transition: background 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+/* Film Grain Noise Overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 99;
+}
+
+a { color: inherit; }
+
+/* View Containers */
+#main-portfolio-view {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 10;
+}
+
+#gl {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+}
+
+/* Top Header & Wolf Tiled Logo */
+.top-header {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 16px);
+  left: clamp(16px, 2.8vw, 44px);
+  right: clamp(16px, 2.8vw, 44px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  z-index: 30;
+  pointer-events: none;
+}
+.top-header > * { pointer-events: auto; }
+
+.wolf-logo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 5px 12px 5px 8px;
+  color: var(--ink);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+.wolf-logo-btn:hover {
+  background: rgba(0, 240, 255, 0.08);
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.22);
+  transform: translateY(-1px);
+}
+.wolf-svg-container {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+.wolf-logo-btn:hover .wolf-svg-container {
+  transform: scale(1.1) rotate(-2deg);
+}
+.wolf-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 6px rgba(0, 240, 255, 0.4));
+  transition: filter 0.3s ease;
+}
+.wolf-logo-btn:hover .wolf-svg {
+  filter: drop-shadow(0 0 10px #00f0ff);
+}
+.wolf-meta {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 1px;
+}
+.wolf-name {
+  font: 700 12px "JetBrains Mono", monospace;
+  letter-spacing: 1.2px;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.wolf-badge {
+  font: 500 9px "JetBrains Mono", monospace;
+  color: var(--cyan);
+  letter-spacing: 0.8px;
+}
+
+/* Nav Links in Top Bar */
+.top {
+  display: flex;
+  gap: clamp(12px, 2vw, 28px);
+  flex-wrap: wrap;
+  font: 400 13px "JetBrains Mono", monospace;
+}
+.top a {
+  text-decoration: none;
+  color: var(--mute);
+  padding: 3px 0;
+  border-bottom: 1px solid transparent;
+  transition: color .3s, border-color .3s;
+}
+.top a:hover { color: var(--ink); }
+.top a.on { color: var(--ink); border-color: var(--accent); }
+
+/* Sliding Editorial Panel */
+.panel {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(500px, 42vw);
+  max-height: 80%;
+  overflow: auto;
+  scrollbar-width: none;
+  z-index: 20;
+  pointer-events: auto;
+}
+.panel::-webkit-scrollbar { display: none; }
+.panel.right { right: clamp(18px, 5vw, 84px); }
+.panel.left { left: clamp(18px, 5vw, 84px); }
+
+.kick { font: 400 13px "JetBrains Mono", monospace; color: var(--accent); margin: 0 0 14px; text-transform: uppercase; letter-spacing: 1px; }
+h1 { font-size: clamp(34px, 4.6vw, 58px); line-height: 1.05; letter-spacing: -.03em; font-weight: 700; margin: 0 0 16px; color: #ffffff; }
+.lead { font-size: 17px; color: #c6cad8; margin: 0 0 22px; max-width: 48ch; line-height: 1.6; }
+.row { display: grid; grid-template-columns: 120px 1fr; gap: 14px; padding: 10px 0; border-top: 1px solid rgba(255, 255, 255, .1); font-size: 14.5px; }
+.row b { font: 500 13px "JetBrains Mono", monospace; color: var(--accent); padding-top: 2px; }
+.row span { color: #c6cad8; line-height: 1.5; }
+.stack { font: 400 13px "JetBrains Mono", monospace; color: var(--mute); margin: 16px 0 20px; }
+.links { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.lk { font-weight: 500; font-family: "JetBrains Mono", monospace; font-size: 13px; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 6px; text-decoration-thickness: 2px; transition: text-underline-offset .25s, color .25s; }
+.lk:hover, .lk:focus-visible { text-underline-offset: 9px; color: #ffffff; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+/* Footer Progress Bar */
+.foot {
+  position: fixed;
+  left: clamp(18px, 3vw, 44px);
+  right: clamp(18px, 3vw, 44px);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 22px);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font: 400 13px "JetBrains Mono", monospace;
+  color: var(--mute);
+  z-index: 20;
+}
+.foot a { text-decoration: none; color: var(--ink); cursor: pointer; padding: 6px 2px; }
+.bar { flex: 1; height: 1px; background: rgba(255, 255, 255, .14); position: relative; }
+.bar i { position: absolute; left: 0; top: -1px; height: 3px; background: var(--accent); width: 0; transition: background 1.8s; }
+.hint { opacity: 0; transition: opacity .5s; }
+.hint.on { opacity: 1; }
+.top-header, .panel { transition: opacity .4s; }
+
+/* Intro Title Particles */
+.intro {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 70px);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .5s;
+  z-index: 20;
+}
+.introing .intro { opacity: 1; pointer-events: auto; }
+.intro .kick { margin: 0 0 14px; }
+.intro .kick.sm { margin: 14px 0 0; color: var(--mute); font-size: 12px; }
+.menu { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px clamp(18px, 3vw, 40px); font-size: 19px; font-weight: 500; }
+.menu a { text-decoration: none; color: var(--mute); border-bottom: 2px solid transparent; padding: 2px 0; transition: color .3s, border-color .3s; }
+.menu a:hover, .menu a.on { color: var(--ink); border-color: var(--accent); }
+.introing .panel { opacity: 0; pointer-events: none; }
+.introing .bar, .introing #count, .introing .hint { visibility: hidden; }
+.introing #gl { cursor: pointer; }
+
+/* ==========================================================================
+   LOW-POLY TILE CURTAIN (TRANSITION OVERLAY)
+   ========================================================================== */
+#tile-curtain {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99990;
+  pointer-events: none;
+  display: none;
+}
+
+/* ==========================================================================
+   IN-APP WOLF SANCTUM VIEW (Inside Main Website)
+   ========================================================================== */
+#wolf-sanctum-view {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 50;
+  display: none;
+  background: radial-gradient(65% 65% at 50% 35%, #18233d, transparent 75%), #08090c;
+  color: var(--ink);
+  -webkit-overflow-scrolling: touch;
+}
+
+.wolf-top-bar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(env(safe-area-inset-top, 0px) + 18px) clamp(18px, 4vw, 64px);
+  background: rgba(8, 9, 12, 0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 60;
+}
+
+.wolf-return-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: 500 13px "JetBrains Mono", monospace;
+  color: var(--cyan);
+  text-decoration: none;
+  background: rgba(0, 240, 255, 0.06);
+  border: 1px solid rgba(0, 240, 255, 0.28);
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.12);
+}
+.wolf-return-btn:hover {
+  background: rgba(0, 240, 255, 0.16);
+  border-color: var(--cyan);
+  color: #ffffff;
+  transform: translateX(-3px);
+  box-shadow: 0 0 22px rgba(0, 240, 255, 0.32);
+}
+
+.wolf-telemetry {
+  font: 400 12px "JetBrains Mono", monospace;
+  color: var(--mute);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.pulse-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--cyan);
+}
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); filter: drop-shadow(0 0 6px var(--cyan)); }
+}
+
+.wolf-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 56px clamp(18px, 4vw, 64px) 120px;
+}
+
+/* Wolf Hero */
+.wolf-hero {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 48px;
+  margin-bottom: 72px;
+}
+.wolf-hero-title {
+  font-size: clamp(36px, 5.2vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  margin-bottom: 18px;
+  color: #ffffff;
+}
+
+.wolf-dispatch-box {
+  background: rgba(0, 240, 255, 0.05);
+  border-left: 3px solid var(--cyan);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  font-size: 14px;
+  color: #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 20px;
+}
+.wolf-dispatch-box b {
+  font: 600 12px "JetBrains Mono", monospace;
+  color: var(--cyan);
+  letter-spacing: 1px;
+}
+.contact-fast-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 4px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+}
+.contact-fast-links a {
+  color: var(--cyan);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.contact-fast-links a:hover {
+  color: #ffffff;
+}
+
+/* Interactive Wolf Centerpiece */
+.wolf-stage-frame {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 1 / 1;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.12) 0%, rgba(14, 22, 40, 0.5) 60%, transparent 80%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 0 35px rgba(0, 240, 255, 0.06);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+.wolf-stage-frame:hover {
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 24px 70px rgba(0, 240, 255, 0.18), inset 0 0 50px rgba(0, 240, 255, 0.1);
+}
+.wolf-totem-svg {
+  width: 82%;
+  height: 82%;
+  filter: drop-shadow(0 10px 28px rgba(0, 240, 255, 0.35));
+  transition: transform 0.3s ease, filter 0.3s ease;
+  cursor: crosshair;
+}
+.wolf-totem-svg polygon {
+  transition: fill 0.25s ease, opacity 0.25s ease;
+}
+.wolf-totem-svg polygon:hover {
+  fill: #00f0ff !important;
+  opacity: 1 !important;
+  filter: drop-shadow(0 0 8px #00f0ff);
+}
+
+/* Wolf Dossiers Grid */
+.wolf-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+}
+.wolf-section-head h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
+
+.wolf-dossier-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.dossier-card {
+  background: rgba(14, 18, 28, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dossier-card:hover {
+  background: rgba(20, 27, 44, 0.85);
+  border-color: rgba(0, 240, 255, 0.35);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 240, 255, 0.12);
+}
+.dossier-num { font: 600 11px "JetBrains Mono", monospace; color: var(--cyan); letter-spacing: 1px; }
+.dossier-title { font-size: 20px; font-weight: 700; color: #ffffff; margin-top: 6px; margin-bottom: 8px; }
+.dossier-desc { font-size: 14px; color: var(--mute); line-height: 1.6; }
+.dossier-slot {
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px dashed rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  font: 400 12px "JetBrains Mono", monospace;
+  color: var(--cyan);
+}
+.dossier-slot span { display: block; font-size: 11px; color: #94a3b8; margin-top: 4px; line-height: 1.4; }
+
+.wolf-wide-panel {
+  background: rgba(14, 20, 34, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 36px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+}
+.wolf-wide-panel b { font: 600 13px "JetBrains Mono", monospace; color: var(--cyan); display: block; margin-bottom: 8px; }
+.wolf-wide-panel p { font-size: 15px; color: var(--mute); line-height: 1.7; }
+
+.wolf-footer {
+  margin-top: 72px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: 400 12px "JetBrains Mono", monospace;
+  color: var(--mute);
+}
+
+/* Responsive */
+@media (max-width: 860px) {
+  .top-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .panel { top: auto; bottom: 74px; transform: none; left: 18px!important; right: 18px!important; width: auto; max-height: 46%; }
+  h1 { font-size: 32px; }
+  .lead { font-size: 16px; margin-bottom: 14px; }
+  .hint { display: none; }
+  .wolf-hero { grid-template-columns: 1fr; gap: 40px; }
+  .wolf-dossier-grid { grid-template-columns: 1fr; }
+  .wolf-wide-panel { grid-template-columns: 1fr; padding: 24px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none!important; } }
+</style>
+</head>
+<body>
+
+<!-- Low-Poly Tile Curtain for Seamless In-Page Transitions -->
+<svg id="tile-curtain" viewBox="0 0 1200 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <g id="curtain-grid"></g>
+</svg>
+
+<!-- 1. MAIN PORTFOLIO VIEW (One Tile Experience) -->
+<div id="main-portfolio-view">
+  <canvas id="gl" aria-label="A single tile of particles reshaping into Glasses, Laurel Hat, Code Symbol, Crowd Symbol, and FinTech Shield"></canvas>
+
+  <header class="top-header" id="top-header">
+    <div class="top-left-brand">
+      <button class="wolf-logo-btn" id="wolf-logo-btn" title="Click to Unravel The Wolf Sanctum" aria-label="Wolf Tiled Logo - Click to enter Wolf Sanctum">
+        <div class="wolf-svg-container" id="wolf-svg-container">
+          <svg class="wolf-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="50,22 38,28 50,42" fill="#38bdf8" opacity="0.95" stroke="#00f0ff" stroke-width="0.6" />
+            <polygon points="50,22 62,28 50,42" fill="#0ea5e9" opacity="0.95" stroke="#00f0ff" stroke-width="0.6" />
+            <polygon points="22,8 14,36 32,30" fill="#1e293b" opacity="0.9" stroke="#38bdf8" stroke-width="0.7" />
+            <polygon points="22,8 32,30 38,28" fill="#334155" opacity="0.9" stroke="#38bdf8" stroke-width="0.7" />
+            <polygon points="78,8 86,36 68,30" fill="#0f172a" opacity="0.9" stroke="#38bdf8" stroke-width="0.7" />
+            <polygon points="78,8 68,30 62,28" fill="#1e293b" opacity="0.9" stroke="#38bdf8" stroke-width="0.7" />
+            <polygon points="14,36 32,30 24,54" fill="#1e293b" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="32,30 36,46 24,54" fill="#334155" opacity="0.9" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="86,36 68,30 76,54" fill="#0f172a" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="68,30 64,46 76,54" fill="#1e293b" opacity="0.9" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="50,42 36,46 50,56" fill="#0284c7" opacity="0.95" stroke="#00f0ff" stroke-width="0.7" />
+            <polygon points="50,42 64,46 50,56" fill="#0369a1" opacity="0.95" stroke="#00f0ff" stroke-width="0.7" />
+            <polygon points="36,46 42,52 48,48" fill="#00f0ff" stroke="#ffffff" stroke-width="0.8" />
+            <polygon points="64,46 58,52 52,48" fill="#00f0ff" stroke="#ffffff" stroke-width="0.8" />
+            <polygon points="24,54 16,66 32,70" fill="#1e293b" opacity="0.8" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="32,70 36,46 42,66" fill="#334155" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="76,54 84,66 68,70" fill="#0f172a" opacity="0.8" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="68,70 64,46 58,66" fill="#1e293b" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="50,56 44,68 50,78" fill="#0284c7" opacity="0.9" stroke="#00f0ff" stroke-width="0.7" />
+            <polygon points="50,56 56,68 50,78" fill="#0369a1" opacity="0.9" stroke="#00f0ff" stroke-width="0.7" />
+            <polygon points="42,66 44,68 42,82" fill="#1e293b" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="58,66 56,68 58,82" fill="#0f172a" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="50,78 44,84 56,84" fill="#00f0ff" stroke="#ffffff" stroke-width="0.8" />
+            <polygon points="44,84 56,84 50,94" fill="#38bdf8" opacity="0.9" stroke="#ffffff" stroke-width="0.8" />
+          </svg>
+        </div>
+        <div class="wolf-meta">
+          <span class="wolf-name">PRANJAL ARYA</span>
+          <span class="wolf-badge">WOLF CORE // UNRAVEL ⚡</span>
+        </div>
+      </button>
+    </div>
+    <nav class="top" id="top" aria-label="Sections"></nav>
+  </header>
+
+  <main class="panel right" id="panel" aria-live="polite"></main>
+
+  <section class="intro" id="intro" aria-label="Choose where to begin">
+    <p class="kick">choose where to begin: click the title or a name</p>
+    <div class="menu" id="menu"></div>
+    <p class="kick sm">enter to open / arrow keys to browse</p>
+  </section>
+
+  <div class="foot">
+    <a id="prev" role="button" tabindex="0" aria-label="Previous section">prev</a>
+    <div class="bar"><i id="fill"></i></div>
+    <span id="count">01 / 06</span>
+    <span class="hint" id="hint">move over the tile to scatter it</span>
+    <a id="next" role="button" tabindex="0" aria-label="Next section">next</a>
+  </div>
+</div>
+
+<!-- 2. IN-APP WOLF SANCTUM VIEW (Smoothly Unravelled by Tiles) -->
+<div id="wolf-sanctum-view">
+  <header class="wolf-top-bar">
+    <button class="wolf-return-btn" id="wolf-return-btn" title="Return to Main Portfolio">
+      <span>←</span>
+      <span>RETURN TO PORTFOLIO</span>
+    </button>
+    <div class="wolf-telemetry">
+      <div class="pulse-indicator">
+        <span class="pulse-dot"></span>
+        <span>WOLF PROTOCOL // IN-APP SANCTUM</span>
+      </div>
+      <span id="wolf-clock">UTC 00:00:00</span>
+    </div>
+  </header>
+
+  <main class="wolf-container">
+    <section class="wolf-hero">
+      <div>
+        <p class="kick">// SANCTUM PROTOCOL // APEX ARCHITECTURE</p>
+        <h1 class="wolf-hero-title">The Wolf Chronicle</h1>
+        <p class="lead">
+          Full-Stack Developer & Systems Technologist (B.Tech CSE, 2027). Hands-on with MERN, Next.js, FastAPI, Neo4j, Docker, GraphRAG, and AI APIs.
+        </p>
+        <div class="wolf-dispatch-box">
+          <b>CONTACT DIRECTORY // DEHRADUN, INDIA</b>
+          <div class="contact-fast-links">
+            <a href="mailto:pranjal19082004@gmail.com">pranjal19082004@gmail.com</a>
+            <a href="tel:+918077587054">+91-8077587054</a>
+            <a href="https://github.com/PranjalArya1908" target="_blank" rel="noopener">GitHub: @PranjalArya1908</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:center;">
+        <div class="wolf-stage-frame" id="wolf-frame">
+          <svg class="wolf-totem-svg" id="wolf-totem-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="50,22 38,28 50,42" fill="#38bdf8" opacity="0.95" stroke="#00f0ff" stroke-width="0.6" />
+            <polygon points="50,22 62,28 50,42" fill="#0ea5e9" opacity="0.95" stroke="#00f0ff" stroke-width="0.6" />
+            <polygon points="22,8 14,36 32,30" fill="#1e293b" opacity="0.9" stroke="#38bdf8" stroke-width="0.7" />
+            <polygon points="22,8 32,30 38,28" fill="#334155" opacity="0.9" stroke="#38bdf8" stroke-width="0.7" />
+            <polygon points="78,8 86,36 68,30" fill="#0f172a" opacity="0.9" stroke="#38bdf8" stroke-width="0.7" />
+            <polygon points="78,8 68,30 62,28" fill="#1e293b" opacity="0.9" stroke="#38bdf8" stroke-width="0.7" />
+            <polygon points="14,36 32,30 24,54" fill="#1e293b" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="32,30 36,46 24,54" fill="#334155" opacity="0.9" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="86,36 68,30 76,54" fill="#0f172a" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="68,30 64,46 76,54" fill="#1e293b" opacity="0.9" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="50,42 36,46 50,56" fill="#0284c7" opacity="0.95" stroke="#00f0ff" stroke-width="0.7" />
+            <polygon points="50,42 64,46 50,56" fill="#0369a1" opacity="0.95" stroke="#00f0ff" stroke-width="0.7" />
+            <polygon points="36,46 42,52 48,48" fill="#00f0ff" stroke="#ffffff" stroke-width="0.8" />
+            <polygon points="64,46 58,52 52,48" fill="#00f0ff" stroke="#ffffff" stroke-width="0.8" />
+            <polygon points="24,54 16,66 32,70" fill="#1e293b" opacity="0.8" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="32,70 36,46 42,66" fill="#334155" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="76,54 84,66 68,70" fill="#0f172a" opacity="0.8" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="68,70 64,46 58,66" fill="#1e293b" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="50,56 44,68 50,78" fill="#0284c7" opacity="0.9" stroke="#00f0ff" stroke-width="0.7" />
+            <polygon points="50,56 56,68 50,78" fill="#0369a1" opacity="0.9" stroke="#00f0ff" stroke-width="0.7" />
+            <polygon points="42,66 44,68 42,82" fill="#1e293b" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="58,66 56,68 58,82" fill="#0f172a" opacity="0.85" stroke="#38bdf8" stroke-width="0.6" />
+            <polygon points="50,78 44,84 56,84" fill="#00f0ff" stroke="#ffffff" stroke-width="0.8" />
+            <polygon points="44,84 56,84 50,94" fill="#38bdf8" opacity="0.9" stroke="#ffffff" stroke-width="0.8" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wolf-section-head">
+        <h2>Career Dossiers & Technical Tracks</h2>
+        <span class="kick">// VERIFIED RESUME DATA</span>
+      </div>
+
+      <div class="wolf-dossier-grid">
+        <div class="dossier-card">
+          <div>
+            <span class="dossier-num">DOSSIER // 01</span>
+            <h3 class="dossier-title">ONGC Experience</h3>
+            <p class="dossier-desc">
+              Software Development & AI-ML Intern at Oil and Natural Gas Corporation (Jun 2026 – Jul 2026).
+            </p>
+          </div>
+          <div class="dossier-slot">
+            ⚡ GRAPHRAG & NEO4J KNOWLEDGE GRAPH
+            <span>Built FastAPI services for graph-based data retrieval, exploration research data linking, Dockerized microservices, and LLM contextual response architectures.</span>
+          </div>
+        </div>
+
+        <div class="dossier-card">
+          <div>
+            <span class="dossier-num">DOSSIER // 02</span>
+            <h3 class="dossier-title">National Hackathon</h3>
+            <p class="dossier-desc">
+              Secured 3rd Position in National-Level Hackathon with CrowdSafe.
+            </p>
+          </div>
+          <div class="dossier-slot">
+            ⚡ 500+ AGENT DENSITY ENGINE
+            <span>Physics simulation with repulsion, attraction, and boundary forces coupled with RAG-based AI agent analyzing live flow patterns and generating safety recommendations.</span>
+          </div>
+        </div>
+
+        <div class="dossier-card">
+          <div>
+            <span class="dossier-num">DOSSIER // 03</span>
+            <h3 class="dossier-title">GATE 2026 Honors</h3>
+            <p class="dossier-desc">
+              Dual Qualification in Graduate Aptitude Test in Engineering.
+            </p>
+          </div>
+          <div class="dossier-slot">
+            ⚡ AIR 2245 (DA) & AIR 10770 (CS)
+            <span>Data Science & Artificial Intelligence (AIR 2245) and Computer Science (AIR 10770). Core Frontend Developer at Tech Club — VMSB UTU.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wolf-wide-panel">
+        <div>
+          <b>// PROFESSIONAL FOCUS & OBJECTIVE</b>
+          <p>
+            Seeking Software Development and Full Stack internship opportunities. Highly proficient in Python, Java, JavaScript, C++, React.js, Next.js, FastAPI, Node.js, Docker, Neo4j, and MongoDB.
+          </p>
+        </div>
+        <div>
+          <b>// DIRECT COMMUNICATION</b>
+          <p>
+            Reach out directly for engineering roles or technical collaborations via email at <a href="mailto:pranjal19082004@gmail.com" style="color:var(--cyan);">pranjal19082004@gmail.com</a> or phone <a href="tel:+918077587054" style="color:var(--cyan);">+91-8077587054</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="wolf-footer">
+      <span>PRANJAL ARYA // B.TECH CSE (2023–2027) // VMSB UTU</span>
+      <button id="wolf-foot-return" style="background:none; border:none; color:var(--cyan); cursor:pointer; font:inherit;">
+        ← RETURN TO MAIN PORTFOLIO
+      </button>
+    </footer>
+  </main>
+</div>
+
+<!-- Libraries -->
+<script src="/src/vendor/three.min.js"></script>
+<script>
+  if (!window.THREE) {
+    document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\/script>');
+  }
+</script>
+<script src="/src/vendor/gsap.min.js"></script>
+<script>
+  if (!window.gsap) {
+    document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script>');
+  }
+</script>
+
+<script>
+const N = 2600, TAU = Math.PI * 2, $ = id => document.getElementById(id), pad = n => String(n).padStart(2, "0");
+
+/* ---------- Procedural Web Audio Synthesizer ---------- */
+function playTileSound(reverse = false) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const now = ctx.currentTime;
+    
+    // Sub tone
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    const startF = reverse ? 45 : 120;
+    const endF = reverse ? 130 : 35;
+    osc.frequency.setValueAtTime(startF, now);
+    osc.frequency.exponentialRampToValueAtTime(endF, now + 0.35);
+    gain.gain.setValueAtTime(0.4, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.45);
+
+    // Crystalline Chime Arpeggio
+    for (let i = 0; i < 5; i++) {
+      const sh = ctx.createOscillator();
+      const shGain = ctx.createGain();
+      sh.type = 'triangle';
+      const f = reverse ? (400 + i * 200) : (1200 - i * 180);
+      sh.frequency.setValueAtTime(f, now + i * 0.04);
+      shGain.gain.setValueAtTime(0.12, now + i * 0.04);
+      shGain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+      sh.connect(shGain);
+      shGain.connect(ctx.destination);
+      sh.start(now + i * 0.04);
+      sh.stop(now + 0.4);
+    }
+  } catch(e) {}
+}
+
+/* ==========================================================================
+   LOW-POLY TILE CURTAIN ENGINE (Cover & Unravel)
+   ========================================================================== */
+function initTileCurtain() {
+  const g = $('curtain-grid');
+  g.innerHTML = '';
+  const cols = 12, rows = 8;
+  const W = 1200, H = 800;
+  const dx = W / cols, dy = H / rows;
+
+  // Jittered grid vertices for authentic low-poly tessellation
+  const verts = [];
+  for (let r = 0; r <= rows; r++) {
+    verts[r] = [];
+    for (let c = 0; c <= cols; c++) {
+      const jitterX = (c === 0 || c === cols) ? 0 : (Math.random() - 0.5) * dx * 0.35;
+      const jitterY = (r === 0 || r === rows) ? 0 : (Math.random() - 0.5) * dy * 0.35;
+      verts[r][c] = [c * dx + jitterX, r * dy + jitterY];
+    }
+  }
+
+  const palette = [
+    '#070a12', '#0c1220', '#111a30', '#162242', 
+    '#0f2946', '#0284c7', '#0369a1', '#00f0ff'
+  ];
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const p00 = verts[r][c];
+      const p10 = verts[r][c + 1];
+      const p11 = verts[r + 1][c + 1];
+      const p01 = verts[r + 1][c];
+
+      // Triangle 1
+      const col1 = palette[Math.floor(Math.random() * palette.length)];
+      const poly1 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+      poly1.setAttribute('points', `${p00[0]},${p00[1]} ${p10[0]},${p10[1]} ${p11[0]},${p11[1]}`);
+      poly1.setAttribute('fill', col1);
+      poly1.setAttribute('stroke', '#00f0ff');
+      poly1.setAttribute('stroke-width', '0.6');
+      poly1.setAttribute('stroke-opacity', '0.4');
+      poly1.setAttribute('class', 'curtain-tile');
+      g.appendChild(poly1);
+
+      // Triangle 2
+      const col2 = palette[Math.floor(Math.random() * palette.length)];
+      const poly2 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+      poly2.setAttribute('points', `${p00[0]},${p00[1]} ${p11[0]},${p11[1]} ${p01[0]},${p01[1]}`);
+      poly2.setAttribute('fill', col2);
+      poly2.setAttribute('stroke', '#00f0ff');
+      poly2.setAttribute('stroke-width', '0.6');
+      poly2.setAttribute('stroke-opacity', '0.4');
+      poly2.setAttribute('class', 'curtain-tile');
+      g.appendChild(poly2);
+    }
+  }
+}
+initTileCurtain();
+
+let isTransitioningWolf = false;
+
+function openWolfSanctum() {
+  if (isTransitioningWolf) return;
+  isTransitioningWolf = true;
+  playTileSound(false);
+
+  const curtain = $('tile-curtain');
+  curtain.style.display = 'block';
+  curtain.style.pointerEvents = 'all';
+
+  const tiles = document.querySelectorAll('.curtain-tile');
+
+  // Phase 1: Tiles cascade and swarm in from top-left wolf logo, covering entire page
+  gsap.timeline()
+    .set(tiles, { scale: 0, opacity: 0, transformOrigin: '50% 50%' })
+    .to(tiles, {
+      scale: 1.04,
+      opacity: 1,
+      duration: 0.42,
+      stagger: {
+        grid: [8, 24],
+        from: 'top-left',
+        ease: 'power2.inOut',
+        amount: 0.38
+      }
+    })
+    .add(() => {
+      // Phase 2: Under solid tile cover, swap views inside the website
+      $('main-portfolio-view').style.display = 'none';
+      const wolfView = $('wolf-sanctum-view');
+      wolfView.style.display = 'block';
+      wolfView.scrollTop = 0;
+    })
+    // Phase 3: Tiles unravel and split open from the center, revealing the wolf page!
+    .to(tiles, {
+      scale: 0,
+      opacity: 0,
+      duration: 0.45,
+      stagger: {
+        grid: [8, 24],
+        from: 'center',
+        ease: 'power3.in',
+        amount: 0.38
+      },
+      onComplete: () => {
+        curtain.style.display = 'none';
+        curtain.style.pointerEvents = 'none';
+        isTransitioningWolf = false;
+      }
+    });
+}
+
+function closeWolfSanctum() {
+  if (isTransitioningWolf) return;
+  isTransitioningWolf = true;
+  playTileSound(true);
+
+  const curtain = $('tile-curtain');
+  curtain.style.display = 'block';
+  curtain.style.pointerEvents = 'all';
+
+  const tiles = document.querySelectorAll('.curtain-tile');
+
+  // Phase 1: Tiles swarm back in from the edges, covering the wolf page
+  gsap.timeline()
+    .set(tiles, { scale: 0, opacity: 0, transformOrigin: '50% 50%' })
+    .to(tiles, {
+      scale: 1.04,
+      opacity: 1,
+      duration: 0.42,
+      stagger: {
+        grid: [8, 24],
+        from: 'edges',
+        ease: 'power2.inOut',
+        amount: 0.38
+      }
+    })
+    .add(() => {
+      // Phase 2: Under solid tile cover, switch back to main portfolio view
+      $('wolf-sanctum-view').style.display = 'none';
+      $('main-portfolio-view').style.display = 'block';
+      resize();
+    })
+    // Phase 3: Tiles unravel and retract into the top-left wolf logo!
+    .to(tiles, {
+      scale: 0,
+      opacity: 0,
+      duration: 0.45,
+      stagger: {
+        grid: [8, 24],
+        from: 'top-left',
+        ease: 'power3.in',
+        amount: 0.38
+      },
+      onComplete: () => {
+        curtain.style.display = 'none';
+        curtain.style.pointerEvents = 'none';
+        isTransitioningWolf = false;
+      }
+    });
+}
+
+$('wolf-logo-btn').addEventListener('click', e => { e.preventDefault(); openWolfSanctum(); });
+$('wolf-return-btn').addEventListener('click', e => { e.preventDefault(); closeWolfSanctum(); });
+$('wolf-foot-return').addEventListener('click', e => { e.preventDefault(); closeWolfSanctum(); });
+
+/* Keyboard shortcut: Escape or B toggles back */
+window.addEventListener('keydown', e => {
+  if ($('wolf-sanctum-view').style.display === 'block') {
+    if (e.key === 'Escape' || e.key === 'b' || e.key === 'B') {
+      closeWolfSanctum();
+    }
+  } else if (e.key === 'w' || e.key === 'W') {
+    openWolfSanctum();
+  }
+});
+
+/* Wolf Parallax */
+const wolfFrame = $('wolf-frame');
+const wolfSvg = $('wolf-totem-svg');
+if (wolfFrame && wolfSvg) {
+  wolfFrame.addEventListener('mousemove', e => {
+    const r = wolfFrame.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    wolfSvg.style.transform = `perspective(600px) rotateY(${x * 18}deg) rotateX(${-y * 18}deg) scale(1.05)`;
+  });
+  wolfFrame.addEventListener('mouseleave', () => {
+    wolfSvg.style.transform = 'perspective(600px) rotateY(0deg) rotateX(0deg) scale(1)';
+  });
+}
+
+function updateWolfClock() {
+  const el = $('wolf-clock');
+  if (!el) return;
+  const d = new Date();
+  const p = n => String(n).padStart(2, '0');
+  el.textContent = `UTC ${p(d.getUTCHours())}:${p(d.getUTCMinutes())}:${p(d.getUTCSeconds())}`;
+}
+setInterval(updateWolfClock, 1000);
+updateWolfClock();
+
+/* ==========================================================================
+   PARTICLE FORMATIONS (2,600 Points Three.js Morphing Engine)
+   1. About: Glasses
+   2. Education: Laurel Hat (Mortarboard + Laurel Wreath)
+   3. Engineering Core: 3D Code Symbol </>
+   4. CrowdSafe: Crowd of People Silhouettes & Flow Network
+   5. Credify: FinTech Smart Card / Shield & Cryptographic EMV Chip
+   6. Contact: Interactive Burst Constellation
+   ========================================================================== */
+const STEPS = [
+  { 
+    nav: 0, side: "right", color: "#8ea2ff", tint: "#1b2248", form: "glasses", spin: 0.06,
+    kicker: "about // vision", title: "Pranjal Arya", 
+    lead: "Computer Science undergraduate (B.Tech CSE, 2027) with hands-on experience in full-stack development, AI/ML, knowledge graphs, and real-time systems.",
+    rows: [
+      ["Summary", "Experienced in MERN, Next.js, FastAPI, Neo4j, Docker, and AI APIs (GraphRAG, Gemini API)."],
+      ["Location", "Dehradun, Uttarakhand, India"],
+      ["Experience", "Software Dev / AI-ML Intern @ ONGC (GraphRAG, Neo4j, FastAPI, Docker)"],
+      ["Leadership", "Core Frontend Developer, Tech Club — VMSB UTU (2023 – Present)"]
+    ],
+    stack: "", 
+    links: [
+      { t: "See Education", go: 1 }, 
+      { t: "View Projects", go: 3 },
+      { t: "GitHub: @PranjalArya1908", href: "https://github.com/PranjalArya1908" },
+      { t: "Contact Me", go: 5 }
+    ] 
+  },
+  { 
+    nav: 1, side: "left", color: "#ffcf86", tint: "#3b2a10", form: "laurel_hat", spin: 0.12,
+    kicker: "education // trajectory", title: "Education & Honors", 
+    lead: "Computer Science and Engineering with distinguished academic honors and dual GATE qualification.",
+    rows: [
+      ["2023 – 2027", "B.Tech in Computer Science and Engineering — VMSB Uttarakhand Technical University, Dehradun (GPA: 6.93 / 10)"],
+      ["GATE 2026", "Qualified: AIR 2245 (Data Science & AI) · AIR 10770 (Computer Science)"],
+      ["2020 – 2022", "Scholars Home Senior Secondary School, Dehradun (Class XII: 89.60% · Class X: 91.00%)"],
+      ["Hackathon", "Secured 3rd Position in National-Level Hackathon (CrowdSafe)"]
+    ],
+    stack: "", 
+    links: [
+      { t: "Next: Skills & Stack", go: 2 },
+      { t: "See Projects", go: 3 }
+    ] 
+  },
+  { 
+    nav: 2, side: "right", color: "#ff8a7a", tint: "#3a1518", form: "code_symbol", spin: 0.18,
+    kicker: "skills // core & experience", title: "Technical Stack", 
+    lead: "Full-stack development, graph databases, containerized microservices, and AI/ML architectures.",
+    rows: [
+      ["Languages", "Python, Java, JavaScript, C, C++, SQL"],
+      ["Web & Frameworks", "React.js, Next.js, Node.js, Express.js, FastAPI, MERN"],
+      ["Databases", "Neo4j (Knowledge Graphs), MongoDB, ChromaDB, MySQL, SQLite"],
+      ["AI/ML & APIs", "GraphRAG, Machine Learning, Google Gemini API, Twilio API"],
+      ["DevOps & Tools", "Docker, Git, GitHub, Socket.IO, LaTeX"]
+    ],
+    stack: "ONGC Internship: Python / FastAPI / Neo4j / Docker / GraphRAG", 
+    links: [
+      { t: "Next: CrowdSafe Project", go: 3 }, 
+      { t: "GitHub Repositories", href: "https://github.com/PranjalArya1908" }
+    ] 
+  },
+  { 
+    nav: 3, side: "left", color: "#5ee7d0", tint: "#0e3033", form: "crowd_symbol", spin: 0.10,
+    kicker: "projects // national hackathon 3rd place", title: "CrowdSafe", 
+    lead: "Physics-based crowd risk assessment simulation engine with RAG-based AI agent (Mar 2026). Secured 3rd position in a national-level hackathon.",
+    rows: [
+      ["Simulation", "Physics simulation engine supporting 500+ agents with repulsion, attraction, and boundary forces"],
+      ["Visualization", "Real-time density visualization, flow pattern tracking, congestion, and danger risk zones"],
+      ["AI Agent", "RAG-based AI agent analyzes simulation outputs to generate contextual risk mitigation alerts"],
+      ["Tech Stack", "JavaScript, Physics Simulation, RAG-based AI Agent, Vector Store"]
+    ],
+    stack: "JavaScript / Physics Simulation / RAG-based AI Agent", 
+    links: [
+      { t: "Next: Credify & SafeMove", go: 4 }, 
+      { t: "GitHub @PranjalArya1908", href: "https://github.com/PranjalArya1908" }
+    ] 
+  },
+  { 
+    nav: 3, side: "right", color: "#b6f06b", tint: "#22300f", form: "fintech_symbol", spin: 0.14,
+    kicker: "projects // fintech & iot", title: "Credify & SafeMove", 
+    lead: "AI credit scoring platform alongside SafeMove QR-based real-time session manager.",
+    rows: [
+      ["Credify", "ML-based credit scoring platform analyzing financial & behavioral data across 1,000+ records (~78% accuracy)"],
+      ["Credify Stack", "FastAPI, React.js, MongoDB, Machine Learning with explainable risk dashboard"],
+      ["SafeMove", "QR-based session manager for 100+ users with secure scan check-ins and Twilio automated SMS"],
+      ["SafeMove Stack", "Next.js, Socket.IO real-time monitoring dashboard, MongoDB, Twilio API"]
+    ],
+    stack: "FastAPI / React.js / MongoDB / ML / Next.js / Socket.IO / Twilio", 
+    links: [
+      { t: "Contact Pranjal", go: 5 }, 
+      { t: "GitHub Profile", href: "https://github.com/PranjalArya1908" }
+    ] 
+  },
+  { 
+    nav: 4, side: "left", color: "#d68cff", tint: "#2b1440", form: "burst", spin: .06,
+    kicker: "contact // direct connect", title: "Get In Touch", 
+    lead: "Seeking Software Development and Full Stack internship opportunities. Let's discuss high-impact engineering.",
+    rows: [
+      ["Email", "pranjal19082004@gmail.com"],
+      ["Phone", "+91-8077587054"],
+      ["GitHub", "github.com/PranjalArya1908"],
+      ["Location", "Dehradun, Uttarakhand, India"]
+    ],
+    stack: "", 
+    links: [
+      { t: "Email: pranjal19082004@gmail.com", href: "mailto:pranjal19082004@gmail.com" },
+      { t: "Call: +91-8077587054", href: "tel:+918077587054" },
+      { t: "GitHub: @PranjalArya1908", href: "https://github.com/PranjalArya1908" }
+    ] 
+  }
+];
+const NAV = ["About", "Education", "Skills", "Projects", "Contact"];
+
+/* ---------- Formations Generation ---------- */
+let sd = 5; const rnd = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
+const R = new Float32Array(N * 4).map(rnd);
+
+const FORMS = {
+  // 1. About: A Pair of Glasses in 3D
+  glasses: (a, b, c, d, i) => {
+    const r = i / N;
+    if (r < 0.32) { // Left rim
+      const th = (r / 0.32) * TAU;
+      const rx = 0.68 + (i % 5) * 0.015;
+      const ry = 0.54 + ((i + 2) % 5) * 0.015;
+      return [-0.88 + rx * Math.cos(th), 0.1 + ry * Math.sin(th), ((i % 7) - 3) * 0.025];
+    } else if (r < 0.64) { // Right rim
+      const th = ((r - 0.32) / 0.32) * TAU;
+      const rx = 0.68 + (i % 5) * 0.015;
+      const ry = 0.54 + ((i + 2) % 5) * 0.015;
+      return [0.88 + rx * Math.cos(th), 0.1 + ry * Math.sin(th), ((i % 7) - 3) * 0.025];
+    } else if (r < 0.72) { // Nose Bridge
+      const t = (r - 0.64) / 0.08;
+      const x = -0.22 + t * 0.44;
+      const y = 0.24 + 0.1 * Math.cos((t - 0.5) * Math.PI);
+      return [x, y, 0.04];
+    } else if (r < 0.85) { // Left temple arm extending back in Z
+      const t = (r - 0.72) / 0.13;
+      const z = -t * 1.9;
+      const y = 0.18 - (t > 0.7 ? 0.4 * Math.pow((t - 0.7) / 0.3, 2) : 0);
+      return [-1.56, y, z];
+    } else { // Right temple arm extending back in Z
+      const t = (r - 0.85) / 0.15;
+      const z = -t * 1.9;
+      const y = 0.18 - (t > 0.7 ? 0.4 * Math.pow((t - 0.7) / 0.3, 2) : 0);
+      return [1.56, y, z];
+    }
+  },
+
+  // 2. Education: Laurel Hat (Mortarboard Graduation Cap + Laurel Leaves)
+  laurel_hat: (a, b, c, d, i) => {
+    const r = i / N;
+    if (r < 0.38) { // Mortarboard top flat diamond plate
+      let u = ((i * 17) % 100) / 100 - 0.5;
+      let v = ((i * 31) % 100) / 100 - 0.5;
+      const dist = Math.abs(u) + Math.abs(v);
+      if (dist > 0.5) {
+        u *= 0.5 / dist;
+        v *= 0.5 / dist;
+      }
+      const x = (u - v) * 1.85;
+      const z = (u + v) * 1.85;
+      const y = 0.55 + 0.12 * z;
+      return [x, y, z];
+    } else if (r < 0.52) { // Skull cap beneath mortarboard
+      const th = ((r - 0.38) / 0.14) * TAU;
+      const rad = 0.72 * (1 - (i % 5) * 0.05);
+      const y = 0.15 + (i % 6) * 0.06;
+      return [rad * Math.cos(th), y, rad * Math.sin(th) * 0.85];
+    } else if (r < 0.62) { // Hanging Tassel
+      const t = (r - 0.52) / 0.10;
+      const x = 0.9 * t;
+      const z = 0.9 * t;
+      const y = 0.65 - 0.85 * Math.pow(t, 1.5);
+      return [x + ((i % 5) - 2) * 0.02, y, z + ((i % 5) - 2) * 0.02];
+    } else { // Laurel Wreath leaves wrapping the base
+      const side = r < 0.81 ? -1 : 1;
+      const t = side === -1 ? (r - 0.62) / 0.19 : (r - 0.81) / 0.19;
+      const base_x = side * (0.95 + 0.45 * Math.sin(t * Math.PI));
+      const base_y = -0.7 + t * 1.15;
+      const base_z = 0.25 * Math.cos(t * Math.PI);
+      const leaf_offset = ((i % 7) - 3) * 0.05;
+      return [base_x + leaf_offset, base_y, base_z];
+    }
+  },
+
+  // 3. Engineering Core: 3D Code Symbol </>
+  code_symbol: (a, b, c, d, i) => {
+    const r = i / N;
+    const dz = ((i % 11) - 5) * 0.06;
+    const thk = ((i % 5) - 2) * 0.04;
+    if (r < 0.32) { // < left bracket
+      const t = r / 0.32;
+      let x, y;
+      if (t < 0.5) {
+        const s = t / 0.5;
+        x = -0.95 - s * 0.95;
+        y = 1.3 - s * 1.3;
+      } else {
+        const s = (t - 0.5) / 0.5;
+        x = -1.9 + s * 0.95;
+        y = -s * 1.3;
+      }
+      return [x + thk, y, dz];
+    } else if (r < 0.68) { // / forward slash
+      const t = (r - 0.32) / 0.36;
+      const x = -0.55 + t * 1.1;
+      const y = -1.4 + t * 2.8;
+      return [x + thk, y, dz];
+    } else { // > right bracket
+      const t = (r - 0.68) / 0.32;
+      let x, y;
+      if (t < 0.5) {
+        const s = t / 0.5;
+        x = 0.95 + s * 0.95;
+        y = 1.3 - s * 1.3;
+      } else {
+        const s = (t - 0.5) / 0.5;
+        x = 1.9 - s * 0.95;
+        y = -s * 1.3;
+      }
+      return [x + thk, y, dz];
+    }
+  },
+
+  // 4. CrowdSafe: Crowd of People Silhouettes & Flow Network
+  crowd_symbol: (a, b, c, d, i) => {
+    const r = i / N;
+    if (r < 0.36) { // Center lead figure
+      if (r < 0.12) { // Head sphere
+        const th = (r / 0.12) * TAU;
+        const ph = ((i * 13) % 100) / 100 * Math.PI;
+        const rad = 0.34;
+        return [rad * Math.sin(ph) * Math.cos(th), 0.85 + rad * Math.cos(ph), 0.35 + rad * Math.sin(ph) * Math.sin(th) * 0.6];
+      } else { // Torso & shoulders
+        const t = (r - 0.12) / 0.24;
+        const w = 0.25 + 0.45 * Math.sin(t * Math.PI * 0.8);
+        const u = ((i % 17) / 17 - 0.5) * 2 * w;
+        const y = 0.45 - t * 1.2;
+        return [u, y, 0.35 + ((i % 5) - 2) * 0.04];
+      }
+    } else if (r < 0.64) { // Left flank figure
+      const sub = (r - 0.36) / 0.28;
+      const cx = -1.15, cy = -0.15, cz = -0.1;
+      if (sub < 0.35) { // Head
+        const th = (sub / 0.35) * TAU;
+        const ph = ((i * 11) % 100) / 100 * Math.PI;
+        const rad = 0.28;
+        return [cx + rad * Math.sin(ph) * Math.cos(th), cy + 0.8 + rad * Math.cos(ph), cz + rad * Math.sin(ph) * Math.sin(th) * 0.6];
+      } else { // Body
+        const t = (sub - 0.35) / 0.65;
+        const w = 0.22 + 0.4 * Math.sin(t * Math.PI * 0.8);
+        const u = ((i % 17) / 17 - 0.5) * 2 * w;
+        return [cx + u, cy + 0.45 - t * 1.1, cz + ((i % 5) - 2) * 0.04];
+      }
+    } else if (r < 0.92) { // Right flank figure
+      const sub = (r - 0.64) / 0.28;
+      const cx = 1.15, cy = -0.15, cz = -0.1;
+      if (sub < 0.35) { // Head
+        const th = (sub / 0.35) * TAU;
+        const ph = ((i * 11) % 100) / 100 * Math.PI;
+        const rad = 0.28;
+        return [cx + rad * Math.sin(ph) * Math.cos(th), cy + 0.8 + rad * Math.cos(ph), cz + rad * Math.sin(ph) * Math.sin(th) * 0.6];
+      } else { // Body
+        const t = (sub - 0.35) / 0.65;
+        const w = 0.22 + 0.4 * Math.sin(t * Math.PI * 0.8);
+        const u = ((i % 17) / 17 - 0.5) * 2 * w;
+        return [cx + u, cy + 0.45 - t * 1.1, cz + ((i % 5) - 2) * 0.04];
+      }
+    } else { // Background nodes & crowd graph flow lines
+      const t = (r - 0.92) / 0.08;
+      const idx = i % 4;
+      if (idx === 0) return [-0.6 + ((i % 7) - 3) * 0.03, 1.15 + ((i % 5) - 2) * 0.03, -0.6];
+      if (idx === 1) return [0.6 + ((i % 7) - 3) * 0.03, 1.15 + ((i % 5) - 2) * 0.03, -0.6];
+      if (idx === 2) return [-1.15 * t, 0.45 - t * 0.2, 0.35 - t * 0.45];
+      return [1.15 * t, 0.45 - t * 0.2, 0.35 - t * 0.45];
+    }
+  },
+
+  // 5. Credify: FinTech Smart Card / Shield & Cryptographic EMV Chip
+  fintech_symbol: (a, b, c, d, i) => {
+    const r = i / N;
+    if (r < 0.42) { // 3D Card / Vault Shield perimeter
+      const th = (r / 0.42) * TAU;
+      const w = 1.35;
+      const h = 0.95;
+      const x = Math.sign(Math.cos(th)) * w * Math.pow(Math.abs(Math.cos(th)), 0.5);
+      const y = Math.sign(Math.sin(th)) * h * Math.pow(Math.abs(Math.sin(th)), 0.5);
+      const z = ((i % 9) - 4) * 0.04;
+      return [x, y, z];
+    } else if (r < 0.65) { // EMV Smart Chip grid
+      const cx = -0.55, cy = 0.12, cz = 0.15;
+      const u = ((i % 11) / 10 - 0.5) * 0.65;
+      const v = (((i * 7) % 11) / 10 - 0.5) * 0.65;
+      return [cx + u, cy + v, cz];
+    } else if (r < 0.90) { // Digital Currency / Verification node
+      const sub = (r - 0.65) / 0.25;
+      const cx = 0.55, cy = 0.12, cz = 0.15;
+      const th = sub * TAU;
+      const rad = 0.45 + (i % 3) * 0.02;
+      if (i % 3 === 0) return [cx, cy - 0.6 + sub * 1.2, cz];
+      return [cx + rad * Math.cos(th), cy + rad * Math.sin(th), cz];
+    } else { // Circuit trace vectors
+      const t = (r - 0.90) / 0.10;
+      const ang = ((i % 8) / 8) * TAU;
+      const dist = 0.7 + t * 0.6;
+      return [dist * Math.cos(ang), dist * Math.sin(ang) * 0.7, 0.05];
+    }
+  },
+
+  // 6. Contact: Interactive Burst Constellation
+  burst: (a, b, c) => {
+    const th = a * TAU, ph = Math.acos(2 * b - 1), r = 1.4 + c * 1.8;
+    return [r * Math.sin(ph) * Math.cos(th), r * Math.cos(ph), r * Math.sin(ph) * Math.sin(th)];
+  }
+};
+
+const TARGET = {};
+Object.keys(FORMS).forEach(k => {
+  const arr = new Float32Array(N * 3);
+  for (let i = 0; i < N; i++) arr.set(FORMS[k](R[i*4], R[i*4+1], R[i*4+2], R[i*4+3], i), i * 3);
+  TARGET[k] = arr;
+});
+
+/* ---------- Title particles for Intro Menu ---------- */
+function buildTitles() {
+  const W = 1200, H = 320, c = document.createElement("canvas"); c.width = W; c.height = H;
+  const x = c.getContext("2d", { willReadFrequently: true }), F = fs => `700 ${fs}px "Space Grotesk",system-ui,sans-serif`;
+  NAV.forEach((name, k) => {
+    x.clearRect(0, 0, W, H); x.fillStyle = "#fff"; x.textAlign = "center"; x.textBaseline = "middle";
+    let fs = 210; x.font = F(fs); const w = x.measureText(name).width; if (w > W * .94) { fs *= W * .94 / w; x.font = F(fs); }
+    x.fillText(name, W / 2, H / 2 + 8);
+    const d = x.getImageData(0, 0, W, H).data, pts = [];
+    for (let py = 0; py < H; py += 2) for (let px = 0; px < W; px += 2) if (d[(py * W + px) * 4 + 3] > 128) pts.push(px, py);
+    const arr = new Float32Array(N * 3), m = pts.length / 2, f = 7.4 / W;
+    for (let i = 0; i < N; i++) { const q = Math.floor(Math.random() * m) * 2; arr.set([(pts[q] - W / 2) * f, -(pts[q + 1] - H / 2) * f, (R[i * 4 + 2] - .5) * .3], i * 3); }
+    TARGET["t" + k] = arr;
+  });
+}
+
+/* ---------- Three.js Scene Setup ---------- */
+const canvas = $("gl"), renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(45, 1, .1, 50); camera.position.z = 7;
+const group = new THREE.Group(); scene.add(group);
+
+const sp = document.createElement("canvas"); sp.width = sp.height = 64;
+const sx = sp.getContext("2d"), gr = sx.createRadialGradient(32, 32, 0, 32, 32, 32);
+gr.addColorStop(0, "#fff"); gr.addColorStop(.35, "rgba(255,255,255,.6)"); gr.addColorStop(1, "rgba(255,255,255,0)"); sx.fillStyle = gr; sx.fillRect(0, 0, 64, 64);
+
+const geo = new THREE.BufferGeometry(), pos = new Float32Array(TARGET.burst);
+geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+const mat = new THREE.PointsMaterial({ size: .055, map: new THREE.CanvasTexture(sp), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, color: STEPS[0].color });
+group.add(new THREE.Points(geo, mat));
+
+const st = { P: 1, from: new Float32Array(TARGET.burst), to: TARGET.burst, expand: 0, ry: 0, acc: 0, spin: 0, mx: 0, my: 0 };
+let cur = -1, time = 0, textTl, hoverOn = false;
+const anchor = side => { const asp = innerWidth / innerHeight; if (asp < .9) return [0, 1.5]; return [(side === "right" ? -1 : 1) * 2.9 * asp * .42, 0]; };
+
+function resize() { 
+  renderer.setSize(innerWidth, innerHeight, false); 
+  camera.aspect = innerWidth / innerHeight; 
+  camera.updateProjectionMatrix();
+  group.scale.setScalar(gScale()); 
+  if (introOn) group.position.set(0, camera.aspect < .9 ? .8 : .45, 0); 
+  else if (cur >= 0) { const [x, y] = anchor(STEPS[cur].side); gsap.set(group.position, { x, y }); } 
+}
+addEventListener("resize", resize);
+
+let last = performance.now();
+renderer.setAnimationLoop(now => {
+  const dt = Math.min((now - last) / 1000, .05); last = now; time += dt; st.acc += st.spin * dt;
+  const P = st.P, ex = 1 + st.expand * 1.1;
+  for (let i = 0; i < N; i++) {
+    const j = i * 3, t = Math.min(Math.max(P * 1.5 - R[i*4+3] * .5, 0), 1), e = t * t * (3 - 2 * t), arc = Math.sin(Math.PI * t) * 2.2, w = Math.sin(time * .8 + i) * .012;
+    pos[j]   = (st.from[j]   + (st.to[j]   - st.from[j])   * e + (R[i*4]   - .5) * arc) * ex + w;
+    pos[j+1] = (st.from[j+1] + (st.to[j+1] - st.from[j+1]) * e + (R[i*4+1] - .5) * arc) * ex + w;
+    pos[j+2] = (st.from[j+2] + (st.to[j+2] - st.from[j+2]) * e + (R[i*4+2] - .5) * arc) * ex;
+  }
+  geo.attributes.position.needsUpdate = true;
+  group.rotation.y = st.ry + st.acc + Math.sin(time * .5) * .12 + st.mx * .35;
+  group.rotation.x = st.my * .25 + Math.sin(time * .4) * .05;
+  renderer.render(scene, camera);
+});
+
+/* ---------- UI Rendering & Step Transitions ---------- */
+$("top").innerHTML = '<a href="#" data-menu>Menu</a>' + NAV.map((n, i) => `<a href="#" data-nav="${i}">${n}</a>`).join("");
+
+function render(i) {
+  const s = STEPS[i];
+  $("panel").className = "panel " + s.side;
+  $("panel").innerHTML = `<p class="a kick">${s.kicker}</p><h1 class="a">${s.title}</h1><p class="a lead">${s.lead}</p>` +
+    s.rows.map(r => `<div class="a row"><b>${r[0]}</b><span>${r[1]}</span></div>`).join("") +
+    (s.stack ? `<p class="a stack">${s.stack}</p>` : `<div style="height:20px"></div>`) +
+    `<div class="a links">${s.links.map(l => `<a class="lk" href="${l.href || "#"}"${l.href ? ' target="_blank" rel="noopener"' : ''}${l.go != null ? ` data-go="${l.go}"` : ""}>${l.t}</a>`).join("")}</div>`;
+}
+
+function go(i, first) {
+  i = (i + STEPS.length) % STEPS.length; if (i === cur) return;
+  const s = STEPS[i], [x, y] = anchor(s.side), first_ = !!first;
+  cur = i; introOn = false; document.body.classList.remove("introing");
+  document.querySelectorAll("[data-nav]").forEach(a => a.classList.toggle("on", +a.dataset.nav === s.nav));
+  $("count").textContent = pad(i + 1) + " / " + pad(STEPS.length);
+  $("hint").classList.toggle("on", s.form === "burst");
+  gsap.to("#fill", { width: ((i + 1) / STEPS.length * 100) + "%", duration: 1, ease: "power2.out" });
+  setHover(false);
+
+  if (first_) { 
+    render(i); 
+    group.position.set(x, y, 0); 
+    st.from = new Float32Array(TARGET[s.form]); 
+    st.to = TARGET[s.form]; 
+    st.P = 1;
+    gsap.set(document.documentElement, { "--tint": s.tint, "--accent": s.color }); 
+    mat.color.set(s.color);
+    gsap.from("#panel .a", { y: 24, opacity: 0, duration: .9, stagger: .07, ease: "power3.out", delay: .3 }); 
+    return; 
+  }
+
+  // Morph to new 3D target shape
+  st.from = new Float32Array(pos); st.to = TARGET[s.form]; st.P = 0;
+  gsap.killTweensOf(st, "P");
+  gsap.to(st, { P: 1, duration: 2.4, ease: "power2.inOut" });
+  gsap.to(group.position, { x, y, duration: 2.2, ease: "power3.inOut" });
+  const sc = gScale(); gsap.to(group.scale, { x: sc, y: sc, z: sc, duration: 1.6, ease: "power3.inOut" });
+  gsap.to(st, { ry: [.35, -.35, .5, -.25, .2, 0][i], spin: s.spin, acc: s.spin ? st.acc : Math.round(st.acc / TAU) * TAU, duration: 2, ease: "power2.inOut" });
+  const c = new THREE.Color(s.color), m = mat.color;
+  gsap.to(m, { r: c.r, g: c.g, b: c.b, duration: 1.8 });
+  gsap.to(document.documentElement, { "--tint": s.tint, "--accent": s.color, duration: 1.8, ease: "power2.inOut" });
+
+  textTl && textTl.kill();
+  textTl = gsap.timeline()
+    .to("#panel .a", { y: -14, opacity: 0, duration: .3, stagger: .025, ease: "power2.in" })
+    .add(() => render(i))
+    .fromTo("#panel .a", { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: .8, stagger: .07, ease: "power3.out" }, "+=.5");
+}
+
+function setHover(on) { if (on === hoverOn) return; hoverOn = on; gsap.to(st, { expand: on ? 1 : 0, duration: on ? 1.3 : .9, ease: "power3.out", overwrite: "auto" }); }
+const onContact = () => cur >= 0 && STEPS[cur].form === "burst";
+
+addEventListener("pointermove", e => { 
+  if (e.pointerType === "touch") return;
+  gsap.to(st, { mx: e.clientX / innerWidth - .5, my: e.clientY / innerHeight - .5, duration: 1, ease: "power3.out", overwrite: "auto" });
+  if (onContact()) setHover(e.target === canvas); 
+});
+canvas.addEventListener("click", () => { if (introOn) enter(ii); else if (onContact()) setHover(!hoverOn); });
+
+const act = f => e => { if (e.type === "click" || e.key === "Enter" || e.key === " ") { e.preventDefault(); f(); } };
+
+let introOn = false, ii = 0, autoT;
+const first1 = k => STEPS.findIndex(s => s.nav === k);
+const gScale = () => introOn ? Math.min(1, 5.8 * camera.aspect * .85 / 7.4) : (camera.aspect < .9 ? .62 : 1);
+const schedule = d => { autoT && autoT.kill(); autoT = gsap.delayedCall(d, () => showTitle((ii + 1) % NAV.length, 3.4)); };
+
+function showTitle(k, delay = 9) {
+  ii = k; const s = STEPS[first1(k)], c = new THREE.Color(s.color), sc = gScale();
+  st.from = new Float32Array(pos); st.to = TARGET["t" + k]; st.P = 0;
+  gsap.killTweensOf(st, "P"); gsap.to(st, { P: 1, duration: 2.2, ease: "power2.inOut" });
+  gsap.to(st, { acc: Math.ceil((st.acc + .5) / TAU) * TAU, ry: 0, spin: 0, duration: 2.2, ease: "power2.inOut", overwrite: "auto" });
+  gsap.to(group.position, { x: 0, y: camera.aspect < .9 ? .8 : .45, duration: 1.6, ease: "power3.inOut" });
+  gsap.to(group.scale, { x: sc, y: sc, z: sc, duration: 1.6, ease: "power3.inOut" });
+  gsap.to(mat.color, { r: c.r, g: c.g, b: c.b, duration: 1.6 });
+  gsap.to(document.documentElement, { "--tint": s.tint, "--accent": s.color, duration: 1.6 });
+  document.querySelectorAll("#menu a").forEach(a => a.classList.toggle("on", +a.dataset.open === k));
+  schedule(delay);
+}
+
+function intro(k) {
+  introOn = true; cur = -1; setHover(false); document.body.classList.add("introing");
+  gsap.delayedCall(.5, () => { if (introOn) $("panel").innerHTML = ""; });
+  showTitle(k, 3.4);
+}
+
+function enter(k) { 
+  autoT && autoT.kill(); 
+  if (introOn) { introOn = false; document.body.classList.remove("introing"); } 
+  go(first1(k)); 
+}
+
+const step = d => introOn ? showTitle((ii + d + NAV.length) % NAV.length, 9) : go(cur + d);
+$("menu").innerHTML = NAV.map((n, k) => `<a href="#" data-open="${k}">${n}</a>`).join("");
+$("menu").addEventListener("click", e => { const a = e.target.closest("[data-open]"); if (a) { e.preventDefault(); enter(+a.dataset.open); } });
+$("menu").addEventListener("pointerover", e => { const a = e.target.closest("[data-open]"); if (a && introOn && e.pointerType !== "touch" && +a.dataset.open !== ii) showTitle(+a.dataset.open, 9); });
+
+["prev", "next"].forEach(id => { const el = $(id), f = () => step(id === "next" ? 1 : -1); el.addEventListener("click", act(f)); el.addEventListener("keydown", act(f)); });
+addEventListener("keydown", e => { 
+  if ($('wolf-sanctum-view').style.display === 'block') return;
+  if (e.key === "ArrowRight" || e.key === "PageDown") step(1); 
+  if (e.key === "ArrowLeft" || e.key === "PageUp") step(-1); 
+  if (e.key === "Enter" && introOn && e.target === document.body) enter(ii); 
+});
+
+let sx0, sy0; addEventListener("pointerdown", e => { sx0 = e.clientX; sy0 = e.clientY; });
+addEventListener("pointerup", e => { 
+  if (sx0 == null || e.pointerType !== "touch" || $('wolf-sanctum-view').style.display === 'block') return; 
+  const dx = e.clientX - sx0, dy = e.clientY - sy0;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1); 
+  sx0 = null; 
+});
+
+let lock = 0; 
+addEventListener("wheel", e => { 
+  if ($('wolf-sanctum-view').style.display === 'block') return;
+  if (e.target.closest("#panel") || Date.now() - lock < 1400 || Math.abs(e.deltaY) < 20) return; 
+  lock = Date.now(); 
+  step(e.deltaY > 0 ? 1 : -1); 
+}, { passive: true });
+
+$("top").addEventListener("click", e => { 
+  const a = e.target.closest("[data-nav],[data-menu]"); 
+  if (!a) return; 
+  e.preventDefault(); 
+  if (a.hasAttribute("data-menu")) intro(cur >= 0 ? STEPS[cur].nav : ii); 
+  else enter(+a.dataset.nav); 
+});
+
+$("panel").addEventListener("click", e => { 
+  const a = e.target.closest("[data-go]"); 
+  if (a) { e.preventDefault(); go(+a.dataset.go); } 
+});
+
+resize();
+Promise.race([document.fonts.load('700 100px "Space Grotesk"'), new Promise(r => setTimeout(r, 1500))])
+  .catch(() => {})
+  .then(() => { 
+    buildTitles(); 
+    intro(0); 
+  });
+</script>
+</body>
+</html>
